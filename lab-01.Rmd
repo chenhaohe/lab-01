@@ -211,7 +211,7 @@ visitors %>%
 
 _Observe in question 6 that the mean statistics across all settings are much larger than the corresponding median statistics. Discuss in your group what this suggests about the data._
 
-**There is a large difference between the attractions with high tourist volume and those with low tourist volume.
+The number of tourists at popular spots is a lot more than at less-visited spots.
 
 ## Question 8
 
@@ -220,8 +220,8 @@ _Observe in question 6 that the mean statistics across all settings are much lar
 ```{r Q8}
 visitors %>% 
   summarise(
-     __________,
-     __________,
+     max_2021 = max(n_2021, na.rm = TRUE),
+     min_2021 = min(n_2021, na.rm = TRUE),
   )
 ```
 
@@ -253,8 +253,8 @@ _How many tourist attractions are there in each of the 4 nations? From this, dis
 
 
 ```{r Ex_l}
-#________ %>%
-#  ______(_______)
+visitors_with_nations %>%
+count(nation)
 ```
 
 
@@ -266,7 +266,12 @@ _How many tourist attractions are there in each of the 4 nations? From this, dis
 _Within each of the 4 nations, what is the proportion of tourist attractions that have free admission for all visitors?_
 
 ```{r Ex_m}
-# Write your code here
+visitors_with_nations %>%
+  group_by(nation) %>%
+  summarise(
+    proportion = mean(admission == "Free"))
+  
+  
 
 
 ```
@@ -277,7 +282,17 @@ _Within each of the 4 nations, what is the proportion of tourist attractions tha
 _Calculate the percentage change in visitor admissions from 2021 to 2022. Of the tourist attractions in Scotland, sort into increasing numerical order the types of admission charges based on the mean percentage change in visitor numbers._
 
 ```{r Ex_n}
-# Write your code here
+visitors_with_nations %>%
+  filter(nation == "Scotland") %>%
+  group_by(admission) %>%
+  mutate(n_changed = (n_2022 - n_2021)/n_2021) %>%
+  summarise(n_percentage_changed = mean(n_changed,na.rm = TRUE)) %>%
+  arrange(n_percentage_changed)
+
+
+
+
+  
 
 
 
