@@ -78,7 +78,7 @@ visitors %>% arrange(desc(n_2022))
 _What are the top 10 most visited attractions in 2021?_
 ```{r Ex_c}
 visitors %>% 
-  arrange(des(n_2021)) %>%
+  arrange(desc(n_2021)) %>%
   head(n = 10)
 ```
 
@@ -105,7 +105,7 @@ _How many attraction had more than 1 million visitors in 2022?_
 
 ```{r Ex_e}
 visitors %>% 
-  filter(n >= 1000000) %>%
+  filter(n_2022 >= 1000000) %>%
   count()
 ```
 
@@ -141,11 +141,10 @@ visitors %>%
 _How many regions have more than 50 tourist attraction in the data set? (Hint: You will need to tabulate the data before filtering.)_
 
 ```{r Ex_g}
-#visitors %>% 
-#  _____(region) %>%
-#  filter(______)
+visitors %>% 
+  count(region) %>%
+  filter(n >= 50)
 ```
-
 
 
 # Summarising Data
@@ -168,11 +167,11 @@ visitors %>%
 _Perform the same calculation for the 2021 admissions data._
 
 ```{r Ex_h}
-#visitors %>% 
-#  ______(
-#    __________,
-#    __________
-#  )
+visitors %>% 
+  summarise(
+    mean_2021 = mean(n_2021, na.rm = TRUE),
+    med_2021 = median(n_2021, na.rm = TRUE)
+  )
 ```
 
 All values in the output are `NA`!
@@ -181,7 +180,7 @@ All values in the output are `NA`!
 
 _What does `NA` stand for and why are you getting this as your answer to the previous question._
 
-**Write your answer here**
+It represent missing values.I get this as my answer to the previous question because there are missing values in 2021 admission data.
 
 
 
@@ -190,7 +189,7 @@ _What does `NA` stand for and why are you getting this as your answer to the pre
 
 _Look at the help pages for the `mean()` and `median()` commands to see what the input argument `na.rm` does. Edit your code from exercise h so that it computes the summary statistics where data is available._
 
-**Write your answer here**
+
 
 
 
@@ -212,18 +211,18 @@ visitors %>%
 
 _Observe in question 6 that the mean statistics across all settings are much larger than the corresponding median statistics. Discuss in your group what this suggests about the data._
 
-**Write your answer here**
+**There is a large difference between the attractions with high tourist volume and those with low tourist volume.
 
 ## Question 8
 
 ### Exercise l.
 
 ```{r Q8}
-#visitors %>% 
-#  summarise(
-#     __________,
-#     __________,
-#  )
+visitors %>% 
+  summarise(
+     __________,
+     __________,
+  )
 ```
 
 ## Question 9
